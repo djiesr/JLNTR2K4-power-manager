@@ -10,6 +10,6 @@ jobs:
     uses: djiesr/workflows/.github/workflows/publish.yml@main
     with:
       # CHANGEME: Set the filenames of your config files here:
-      files: power-manager-8c-esp32-d1-mini.yaml,project-template-esp8266.yaml
+      files: power-manager-8c-esp32-d1-mini.yaml,power-manager-8c-esp8266-d1-mini.yaml
       # CHANGEME: Set the name of your project here:
       name: Power-Manager
