@@ -2,7 +2,7 @@
 substitutions:
   name: "power-manager"
   # Modify variables if you use multiple boards
-  hostname: 'PM2'
+  hostname: 'PM'
   # Modify variables based on your circuit, like "breaker 01" or "dryer" 
   ct_clamp_00: 'A0'
   ct_clamp_01: 'A1'
