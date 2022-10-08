@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    uses: djiesr/workflows/.github/workflows/publish.yml@main
+    uses: esphome/workflows/.github/workflows/publish.yml@main
     with:
       # CHANGEME: Set the filenames of your config files here:
       files: power-manager-8c-esp32-d1-mini.yaml,power-manager-8c-esp8266-d1-mini.yaml
