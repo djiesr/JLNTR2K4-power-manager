@@ -29,7 +29,7 @@ esphome:
   # configuration and updates.
   project:
     name: esphome.power-manager
-    version: "2022.6"
+    version: "1.6"
 
 esp32:
   board: wemos_d1_mini32
@@ -72,7 +72,7 @@ captive_portal:
 
 # Sets up the improv via serial client for Wi-Fi provisioning.
 # Handy if your device has a usb port for the user to add credentials when they first get it.
-improv_serial:
+#improv_serial:
 
 # My script
 
@@ -341,44 +341,43 @@ sensor:
           
 ########################################################## Power total house ########################################################## 
 
-  - platform: template
-    id: power_total
-    name: "Énergie mesurée"
-    lambda: return ((id(measured_current_a0).state + id(measured_current_a7).state) * 120 / 1000); #Power = V*I/1000. So change 230V to whatever your mains voltage is)
-    unit_of_measurement: 'kW'
-    device_class: power
-    accuracy_decimals: 3
-    update_interval: 10s   
+#  - platform: template
+#    id: power_total
+#    name: "Énergie mesurée"
+#    lambda: return ((id(measured_current_a0).state + id(measured_current_a7).state) * 120 / 1000); #Power = V*I/1000. So change 230V to whatever your mains voltage is)
+#    unit_of_measurement: 'kW'
+#    device_class: power
+#    accuracy_decimals: 3
+#    update_interval: 10s   
 
-  - platform: total_daily_energy
-    name: "Énergie totale de la maison"
-    device_class: energy
-    accuracy_decimals: 2
-    power_id: power_total
-    restore: true
+#  - platform: total_daily_energy
+#    name: "Énergie totale de la maison"
+#    device_class: energy
+#    accuracy_decimals: 2
+#    power_id: power_total
+#    restore: true
   
 ##############################################################################################################################################
 
-#  - platform: template
-#    id: power_a0
-#    name: $hostname $measured_power $ct_clamp_00
-#    unit_of_measurement: 'kW'
-#    device_class: power
-#    update_interval: 15s        
-#    accuracy_decimals: 3
-#    lambda: |-
-#      if (id(measured_current_a0).state > 0.03){
-#        return (id(measured_current_a0).state * 120 / 1000); 
-#      } else {
-#        return 0.0;
-#      }
-
-#  - platform: total_daily_energy
-#    name: $hostname $measured_total_power_daily $ct_clamp_00:
-#    device_class: energy
-#    power_id: power_a0
-#    restore: true
-#    id: tde_a0
+  - platform: template
+    id: power_a0
+    name: $hostname $measured_power $ct_clamp_00
+    unit_of_measurement: 'kW'
+    device_class: power
+    update_interval: 15s        
+    accuracy_decimals: 3
+    lambda: |-
+      if (id(measured_current_a0).state > 0.03){
+        return (id(measured_current_a0).state * 120 / 1000); 
+      } else {
+        return 0.0;
+      }
+  - platform: total_daily_energy
+    name: $hostname $measured_total_power_daily $ct_clamp_00:
+    device_class: energy
+    power_id: power_a0
+    restore: true
+    id: tde_a0
 
   - platform: template
     id: power_a1
@@ -511,26 +510,26 @@ sensor:
     restore: true
     id: tde_a6
 
-#  - platform: template
-#    id: power_a7
-#    name: $hostname $measured_power $ct_clamp_07
-#    unit_of_measurement: 'kW'
-#    device_class: power
-#    update_interval: 15s 
-#    accuracy_decimals: 3
-#    lambda: |-
-#      if (id(measured_current_a7).state > 0.03){
-#        return (id(measured_current_a7).state * 120 / 1000); 
-#      } else {
-#        return 0.0;
-#      }
-#
-#  - platform: total_daily_energy
-#    name: $hostname $measured_total_power_daily $ct_clamp_07
-#    device_class: power
-#    power_id: power_a7
-#    restore: true
-#    id: tde_a7
+  - platform: template
+    id: power_a7
+    name: $hostname $measured_power $ct_clamp_07
+    unit_of_measurement: 'kW'
+    device_class: power
+    update_interval: 15s 
+    accuracy_decimals: 3
+    lambda: |-
+      if (id(measured_current_a7).state > 0.03){
+        return (id(measured_current_a7).state * 120 / 1000); 
+      } else {
+        return 0.0;
+      }
+
+  - platform: total_daily_energy
+    name: $hostname $measured_total_power_daily $ct_clamp_07
+    device_class: power
+    power_id: power_a7
+    restore: true
+    id: tde_a7
 
 time:
   - platform: sntp
