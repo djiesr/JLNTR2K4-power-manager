@@ -29,7 +29,7 @@ esphome:
   # configuration and updates.
   project:
     name: esphome.power-manager
-    version: "1.6"
+    version: "6.4.1"
 
 esp8266:
   board: d1_mini
