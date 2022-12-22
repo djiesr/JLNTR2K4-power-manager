@@ -29,7 +29,7 @@ esphome:
   # configuration and updates.
   project:
     name: esphome.power-manager
-    version: "1.6"
+    version: "6.4.1"
 
 esp32:
   board: wemos_d1_mini32
