@@ -382,7 +382,7 @@ sensor:
         return 0.0;
       }
   - platform: total_daily_energy
-    name: $hostname $measured_total_power_daily $ct_clamp_00:
+    name: $hostname $measured_total_power_daily $ct_clamp_00
     device_class: energy
     power_id: power_a0
     restore: true
