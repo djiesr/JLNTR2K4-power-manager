@@ -10,8 +10,8 @@ jobs:
     strategy:
       matrix:
         file:
-          - project-template-esp32.yaml
-          - project-template-esp8266.yaml
+          - power-manager-8c-esp32-d1-mini.yaml
+          - power-manager-8c-esp8266-d1-mini.yaml
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
