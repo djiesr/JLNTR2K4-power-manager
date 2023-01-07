@@ -104,14 +104,14 @@ display:
         lambda: |-
           it.printf(10, 0, id(font_times), "Power Manager");
           it.printf(10, 15, id(font_times), "JLNTR2k4 2022.4");
-          it.printf(10, 30, id(font_times), "Main: %.1f kW", id(power_total).state);    
+#          it.printf(10, 30, id(font_times), "Main: %.1f kW", id(power_total).state);    
           it.printf(10, 45, id(font_times), "IP: %s", id(ip_now).state.c_str()); 
       - id: page2
         lambda: |-
-          it.printf(10, 0, id(font_times), "Get A0: %.3f V", id(adc_sensor_a2).state);
-          it.printf(10, 15, id(font_times), "A0: %.2f Amp", id(measured_current_a2).state);
-          it.printf(10, 30, id(font_times), "Power %.3f kW", id(power_a2).state);
-          it.printf(10, 45, id(font_times), "Total %.3f kW", id(tde_a2).state);
+          it.printf(10, 0, id(font_times), "Get A0: %.3f V", id(adc_sensor_a0).state);
+          it.printf(10, 15, id(font_times), "A0: %.2f Amp", id(measured_current_a0).state);
+          it.printf(10, 30, id(font_times), "Power %.3f kW", id(power_a0).state);
+          it.printf(10, 45, id(font_times), "Total %.3f kW", id(tde_a0).state);
       - id: page3
         lambda: |-
           it.printf(10, 0, id(font_times), "Get A1: %.3f V", id(adc_sensor_a1).state);
