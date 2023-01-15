@@ -1,7 +1,7 @@
 # Catroniq - Power Manager
 
 https://catroniq.com/gesterner8ports
-https://github.com/djiesr/JLNTR2K4-power-manager/blob/main/board.jpg
+(https://github.com/djiesr/JLNTR2K4-power-manager/blob/main/board.jpg?raw=true)
 
 This repo serves as a template for creating a new ESPHome project.
 
