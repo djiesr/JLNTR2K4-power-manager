@@ -8,15 +8,15 @@
       "chipFamily": "ESP32",
       "ota": {
         "path": "power-manager-esp32.ota.bin",
-        "md5": "98d06f052d3862c4b87b0c4db74aeafb",
-        "sha256": "04411729f19adef74a7352f5f712a63f30b92fbb13fbda8000c5657fe0aee008"
+        "md5": "9b86679a6ce18b73e5057a6f4fad1cac",
+        "sha256": "9b1c495222d2c936e8d748480b4bc0ba3b74b79d21640dd00b94957f92e66b6b"
       },
       "parts": [
         {
           "path": "power-manager-esp32.factory.bin",
           "offset": 0,
-          "md5": "44adae609e5266088b0b205f30167d4c",
-          "sha256": "9a7d688d7e49d6eeb8e3e8288596776381910c217bd6d2449d5f003af1762d7b"
+          "md5": "265f05f3b653a43a0a10313f39549e7d",
+          "sha256": "a269e67c6a59b8cc90fdca8345f9e6c4759a865a50ad66bb66ea212715ee8f4a"
         }
       ]
     },
@@ -24,15 +24,15 @@
       "chipFamily": "ESP8266",
       "ota": {
         "path": "power-manager-esp8266.ota.bin",
-        "md5": "8a9fa4c26d41f78a8f363a364cb91dca",
-        "sha256": "22f6c7825ff942115d2f76c3ae6fc9c1ae70acb49bc98affe8a28c6d7946fb98"
+        "md5": "0e5fea92fa6accca293b62d3d13a6910",
+        "sha256": "83ed50f9aab48ca548275396376f303258d76d079151939761450755563a982e"
       },
       "parts": [
         {
           "path": "power-manager-esp8266.factory.bin",
           "offset": 0,
-          "md5": "8a9fa4c26d41f78a8f363a364cb91dca",
-          "sha256": "22f6c7825ff942115d2f76c3ae6fc9c1ae70acb49bc98affe8a28c6d7946fb98"
+          "md5": "0e5fea92fa6accca293b62d3d13a6910",
+          "sha256": "83ed50f9aab48ca548275396376f303258d76d079151939761450755563a982e"
         }
       ]
     }
