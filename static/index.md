@@ -24,7 +24,10 @@ Branchez la carte à votre ordinateur avec un câble USB, puis cliquez sur le bo
 <esp-web-install-button manifest="./manifest.json"></esp-web-install-button>
 
 - Fonctionne avec **Chrome** ou **Edge** sur ordinateur (pas sur Firefox, Safari ni téléphone).
-- Si la carte n'est pas détectée, installez le [pilote USB CH340](https://www.wch-ic.com/downloads/CH341SER_EXE.html), puis réessayez.
+- Pas besoin de savoir si votre carte est un ESP8266 ou un ESP32 : le bouton détecte la puce et installe le bon firmware.
+- Si la carte n'est pas détectée :
+  1. Vérifiez votre câble USB. Plusieurs câbles (souvent ceux fournis avec des écouteurs ou des lampes) servent seulement à la recharge et ne transportent pas les données. Essayez un câble qui permet de transférer des fichiers vers un téléphone.
+  2. Installez le [pilote USB CH340](https://www.wch-ic.com/downloads/CH341SER_EXE.html), puis débranchez et rebranchez la carte.
 
 Une fois la carte connectée au Wi-Fi, Home Assistant la détecte automatiquement : ouvrez **Paramètres → Appareils et services** et cliquez sur **Configurer** sous ESPHome.
 
@@ -45,6 +48,13 @@ Les réglages sont conservés dans la carte, même après une panne de courant o
 
 Vous pouvez aussi adopter la carte dans le tableau de bord ESPHome, ou copier le fichier YAML de votre modèle depuis le [dépôt GitHub](https://github.com/djiesr/JLNTR2K4-power-manager).
 
+Pour choisir le bon fichier, regardez le module installé sur la carte :
+
+| | ESP8266 (D1 mini) | ESP32 (D1 mini32) |
+|---|---|---|
+| Inscription sur la puce métallique | ESP-12F / ESP8266 | ESP32-WROOM |
+| Broches | 2 rangées de 8 (16 broches) | 2 rangées doubles de chaque côté (40 broches) |
+| Fichier YAML | `power-manager-8c-esp8266-d1-mini.yaml` | `power-manager-8c-esp32-d1-mini.yaml` |
 ---
 
 [catroniq.com](https://catroniq.com/gesterner8ports)
