@@ -4,12 +4,53 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+concurrency:
+  group: publish
+  cancel-in-progress: true
 
 jobs:
   build:
-    uses: esphome/workflows/.github/workflows/publish.yml@main
+    name: Build firmware
+    uses: esphome/workflows/.github/workflows/build.yml@2026.10.3
     with:
-      # CHANGEME: Set the filenames of your config files here:
-      files: power-manager-8c-esp32-d1-mini.yaml,power-manager-8c-esp8266-d1-mini.yaml
-      # CHANGEME: Set the name of your project here:
-      name: Power-Manager
+      files: |
+        power-manager-8c-esp8266-d1-mini.yaml
+        power-manager-8c-esp32-d1-mini.yaml
+      # One manifest for both chips: ESP Web Tools picks the right build
+      combined-name: power-manager
+
+  publish:
+    name: Publish website
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v7.0.1
+
+      - name: Download firmware
+        uses: actions/download-artifact@v8.0.2
+        with:
+          name: power-manager
+          path: firmware
+
+      - name: Assemble website
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          set -euo pipefail
+          mkdir -p site
+          cp -r static/. site/
+          cp firmware/power-manager/"$VERSION"/* site/
+          ls -la site
+          cat site/manifest.json
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
+        with:
+          branch: gh-pages
+          folder: site
+          clean: true
