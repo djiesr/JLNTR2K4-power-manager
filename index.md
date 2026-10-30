@@ -33,7 +33,9 @@ Une fois la carte connectée au Wi-Fi, Home Assistant la détecte automatiquemen
 
 ## Configuration des pinces
 
-Par défaut, les 8 canaux sont à **None** (désactivés) pour éviter les valeurs au hasard sur les entrées sans pince. Pour chaque canal utilisé, ouvrez l'appareil dans Home Assistant, section **Configuration**, puis choisissez :
+Dans Home Assistant, chaque connecteur apparaît comme un appareil séparé (**PM A0** à **PM A7**), relié à la carte. Il regroupe ses mesures (courant, puissance, énergie) et ses réglages.
+
+Par défaut, les 8 canaux sont à **None** (désactivés) pour éviter les valeurs au hasard sur les entrées sans pince. Pour chaque connecteur utilisé, ouvrez son appareil dans Home Assistant, section **Configuration**, puis choisissez :
 
 | Réglage | Valeurs | Description |
 |---|---|---|
@@ -43,6 +45,8 @@ Par défaut, les 8 canaux sont à **None** (désactivés) pour éviter les valeu
 | CT Correction | 50 à 150 % | Ajustement fin, à comparer avec une pince ampèremétrique de référence |
 
 Les réglages sont conservés dans la carte, même après une panne de courant ou une mise à jour.
+
+Astuce : renommez l'appareil d'un connecteur dans Home Assistant (par exemple « Sécheuse ») et toutes ses mesures suivent.
 
 ### Quelle tension choisir ?
 
