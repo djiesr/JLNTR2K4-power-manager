@@ -34,7 +34,7 @@ esphome:
   # configuration and updates.
   project:
     name: esphome.power-manager
-    version: "6.5.0"
+    version: "6.5.1"
 
 esp8266:
   board: d1_mini
@@ -429,7 +429,8 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       if (id(measured_current_a0).state > 0.03){
-        float volts = id(circuit_voltage_a0).active_index().value_or(0) == 1 ? 240.0f : 120.0f;
+        static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
+        float volts = VOLTS[id(circuit_voltage_a0).active_index().value_or(0)];
         return (id(measured_current_a0).state * volts / 1000);
       } else {
         return 0.0;
@@ -450,7 +451,8 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       if (id(measured_current_a1).state > 0.03){
-        float volts = id(circuit_voltage_a1).active_index().value_or(0) == 1 ? 240.0f : 120.0f;
+        static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
+        float volts = VOLTS[id(circuit_voltage_a1).active_index().value_or(0)];
         return (id(measured_current_a1).state * volts / 1000);
       } else {
         return 0.0;
@@ -473,7 +475,8 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       if (id(measured_current_a2).state > 0.03){
-        float volts = id(circuit_voltage_a2).active_index().value_or(0) == 1 ? 240.0f : 120.0f;
+        static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
+        float volts = VOLTS[id(circuit_voltage_a2).active_index().value_or(0)];
         return (id(measured_current_a2).state * volts / 1000);
       } else {
         return 0.0;
@@ -496,7 +499,8 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       if (id(measured_current_a3).state > 0.03){
-        float volts = id(circuit_voltage_a3).active_index().value_or(0) == 1 ? 240.0f : 120.0f;
+        static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
+        float volts = VOLTS[id(circuit_voltage_a3).active_index().value_or(0)];
         return (id(measured_current_a3).state * volts / 1000);
       } else {
         return 0.0;
@@ -519,7 +523,8 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       if (id(measured_current_a4).state > 0.03){
-        float volts = id(circuit_voltage_a4).active_index().value_or(0) == 1 ? 240.0f : 120.0f;
+        static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
+        float volts = VOLTS[id(circuit_voltage_a4).active_index().value_or(0)];
         return (id(measured_current_a4).state * volts / 1000);
       } else {
         return 0.0;
@@ -542,7 +547,8 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       if (id(measured_current_a5).state > 0.03){
-        float volts = id(circuit_voltage_a5).active_index().value_or(0) == 1 ? 240.0f : 120.0f;
+        static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
+        float volts = VOLTS[id(circuit_voltage_a5).active_index().value_or(0)];
         return (id(measured_current_a5).state * volts / 1000);
       } else {
         return 0.0;
@@ -565,7 +571,8 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       if (id(measured_current_a6).state > 0.03){
-        float volts = id(circuit_voltage_a6).active_index().value_or(0) == 1 ? 240.0f : 120.0f;
+        static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
+        float volts = VOLTS[id(circuit_voltage_a6).active_index().value_or(0)];
         return (id(measured_current_a6).state * volts / 1000);
       } else {
         return 0.0;
@@ -587,7 +594,8 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       if (id(measured_current_a7).state > 0.03){
-        float volts = id(circuit_voltage_a7).active_index().value_or(0) == 1 ? 240.0f : 120.0f;
+        static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
+        float volts = VOLTS[id(circuit_voltage_a7).active_index().value_or(0)];
         return (id(measured_current_a7).state * volts / 1000);
       } else {
         return 0.0;
@@ -627,7 +635,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V"]
+    options: ["120 V", "240 V", "230 V"]
     initial_option: "120 V"
 
   - platform: template
@@ -654,7 +662,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V"]
+    options: ["120 V", "240 V", "230 V"]
     initial_option: "120 V"
 
   - platform: template
@@ -681,7 +689,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V"]
+    options: ["120 V", "240 V", "230 V"]
     initial_option: "120 V"
 
   - platform: template
@@ -708,7 +716,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V"]
+    options: ["120 V", "240 V", "230 V"]
     initial_option: "120 V"
 
   - platform: template
@@ -735,7 +743,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V"]
+    options: ["120 V", "240 V", "230 V"]
     initial_option: "120 V"
 
   - platform: template
@@ -762,7 +770,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V"]
+    options: ["120 V", "240 V", "230 V"]
     initial_option: "120 V"
 
   - platform: template
@@ -789,7 +797,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V"]
+    options: ["120 V", "240 V", "230 V"]
     initial_option: "120 V"
 
   - platform: template
@@ -816,7 +824,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V"]
+    options: ["120 V", "240 V", "230 V"]
     initial_option: "120 V"
 
 number:
