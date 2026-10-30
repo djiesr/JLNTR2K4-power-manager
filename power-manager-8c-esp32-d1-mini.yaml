@@ -52,7 +52,7 @@ esphome:
   # configuration and updates.
   project:
     name: esphome.power-manager
-    version: "6.6.0"
+    version: "6.7.0"
 
 esp32:
   board: wemos_d1_mini32
@@ -67,6 +67,19 @@ api:
 
 # OTA is required for Over-the-Air updating
 ota:
+  - platform: esphome
+  # Lets the device install the firmware published on GitHub Pages
+  - platform: http_request
+
+http_request:
+  verify_ssl: true
+
+# Home Assistant shows "Update available" when a new version is published
+update:
+  - platform: http_request
+    name: Firmware
+    source: https://djiesr.github.io/JLNTR2K4-power-manager/manifest.json
+    update_interval: 6h
 
 # This should point to the public location of this yaml file.
 dashboard_import:

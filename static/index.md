@@ -16,6 +16,11 @@ Le **Power Manager 8 ports** de [Catroniq](https://catroniq.com/gesterner8ports)
 - Page web intégrée, utilisable même sans Home Assistant
 - Compatible avec le tableau de bord Énergie de Home Assistant
 
+## Prérequis
+
+- Home Assistant **2025.7** ou plus récent
+- Pour les utilisateurs d'ESPHome : ESPHome **2025.7** ou plus récent
+
 ## Installation
 
 Branchez la carte à votre ordinateur avec un câble USB, puis cliquez sur le bouton ci-dessous. Le firmware s'installe directement depuis votre navigateur, puis la page vous demande votre réseau Wi-Fi.
@@ -30,6 +35,14 @@ Branchez la carte à votre ordinateur avec un câble USB, puis cliquez sur le bo
   2. Installez le [pilote USB CH340](https://www.wch-ic.com/downloads/CH341SER_EXE.html), puis débranchez et rebranchez la carte.
 
 Une fois la carte connectée au Wi-Fi, Home Assistant la détecte automatiquement : ouvrez **Paramètres → Appareils et services** et cliquez sur **Configurer** sous ESPHome.
+
+## Mises à jour
+
+Quand une nouvelle version est publiée, Home Assistant affiche **Mise à jour disponible** dans **Paramètres → Mises à jour**. Cliquez sur **Installer** : la carte télécharge et installe le nouveau firmware par Wi-Fi, sans câble.
+
+La carte vérifie les mises à jour toutes les 6 heures.
+
+Une carte installée avant la version 6.7.0 n'a pas encore cette fonction : revenez une dernière fois sur cette page, branchez-la en USB et cliquez sur le bouton d'installation.
 
 ## Configuration des pinces
 
