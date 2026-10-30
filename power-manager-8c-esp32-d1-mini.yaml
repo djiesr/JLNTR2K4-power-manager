@@ -16,7 +16,7 @@ substitutions:
   adc_sensor: 'ADC Sensor'
   measured_current: 'Measured Current'
   measured_power: 'Measured Power'
-  measured_total_power_daily: 'Measured Total/Daily'
+  measured_total_power_daily: 'Measured Daily Total'
   ct_model: 'CT Model'
   ct_output: 'CT Output'
   ct_none: 'None'
@@ -26,6 +26,24 @@ substitutions:
 
 esphome:
   name: "${name}"
+  # One Home Assistant device per connector (sensors + CT settings)
+  devices:
+    - id: dev_a0
+      name: "$hostname $ct_clamp_00"
+    - id: dev_a1
+      name: "$hostname $ct_clamp_01"
+    - id: dev_a2
+      name: "$hostname $ct_clamp_02"
+    - id: dev_a3
+      name: "$hostname $ct_clamp_03"
+    - id: dev_a4
+      name: "$hostname $ct_clamp_04"
+    - id: dev_a5
+      name: "$hostname $ct_clamp_05"
+    - id: dev_a6
+      name: "$hostname $ct_clamp_06"
+    - id: dev_a7
+      name: "$hostname $ct_clamp_07"
   # Automatically add the mac address to the name
   # so you can use a single firmware for all devices
   name_add_mac_suffix: true
@@ -34,7 +52,7 @@ esphome:
   # configuration and updates.
   project:
     name: esphome.power-manager
-    version: "6.5.1"
+    version: "6.6.0"
 
 esp32:
   board: wemos_d1_mini32
@@ -190,7 +208,8 @@ sensor:
     mcp3008_id: main_board
     id: adc_sensor_a0
     number: 0
-    name: $hostname $adc_sensor $ct_clamp_00
+    name: $adc_sensor
+    device_id: dev_a0
     accuracy_decimals: 3
     internal: true
     filters:
@@ -201,7 +220,8 @@ sensor:
     mcp3008_id: main_board
     id: adc_sensor_a1
     number: 1
-    name: $hostname $adc_sensor $ct_clamp_01
+    name: $adc_sensor
+    device_id: dev_a1
     accuracy_decimals: 3
     internal: true
     filters:
@@ -212,7 +232,8 @@ sensor:
     mcp3008_id: main_board
     id: adc_sensor_a2
     number: 2
-    name: $hostname $adc_sensor $ct_clamp_02
+    name: $adc_sensor
+    device_id: dev_a2
     accuracy_decimals: 3
     internal: true
     filters:
@@ -223,7 +244,8 @@ sensor:
     mcp3008_id: main_board
     id: adc_sensor_a3
     number: 3
-    name: $hostname $adc_sensor $ct_clamp_03
+    name: $adc_sensor
+    device_id: dev_a3
     accuracy_decimals: 3
     internal: true
     filters:
@@ -234,7 +256,8 @@ sensor:
     mcp3008_id: main_board
     id: adc_sensor_a4
     number: 4
-    name: $hostname $adc_sensor $ct_clamp_04
+    name: $adc_sensor
+    device_id: dev_a4
     accuracy_decimals: 3
     internal: true
     filters:
@@ -245,7 +268,8 @@ sensor:
     mcp3008_id: main_board
     id: adc_sensor_a5
     number: 5
-    name: $hostname $adc_sensor $ct_clamp_05
+    name: $adc_sensor
+    device_id: dev_a5
     accuracy_decimals: 3
     internal: true
     filters:
@@ -256,7 +280,8 @@ sensor:
     mcp3008_id: main_board
     id: adc_sensor_a6
     number: 6
-    name: $hostname $adc_sensor $ct_clamp_06
+    name: $adc_sensor
+    device_id: dev_a6
     accuracy_decimals: 3
     internal: true
     filters:
@@ -267,7 +292,8 @@ sensor:
     mcp3008_id: main_board
     id: adc_sensor_a7
     number: 7
-    name: $hostname $adc_sensor $ct_clamp_07
+    name: $adc_sensor
+    device_id: dev_a7
     accuracy_decimals: 3
     internal: true
     filters:
@@ -277,7 +303,8 @@ sensor:
 
   - platform: ct_clamp
     sensor: adc_sensor_a0
-    name: $hostname $measured_current $ct_clamp_00
+    name: $measured_current
+    device_id: dev_a0
     update_interval: 15s
     id: measured_current_a0
     accuracy_decimals: 3
@@ -292,7 +319,8 @@ sensor:
 
   - platform: ct_clamp
     sensor: adc_sensor_a1
-    name: $hostname $measured_current $ct_clamp_01
+    name: $measured_current
+    device_id: dev_a1
     update_interval: 15s
     id: measured_current_a1
     accuracy_decimals: 3
@@ -307,7 +335,8 @@ sensor:
 
   - platform: ct_clamp
     sensor: adc_sensor_a2
-    name: $hostname $measured_current $ct_clamp_02
+    name: $measured_current
+    device_id: dev_a2
     update_interval: 15s
     id: measured_current_a2
     accuracy_decimals: 3
@@ -322,7 +351,8 @@ sensor:
 
   - platform: ct_clamp
     sensor: adc_sensor_a3
-    name: $hostname $measured_current $ct_clamp_03
+    name: $measured_current
+    device_id: dev_a3
     update_interval: 15s
     id: measured_current_a3
     accuracy_decimals: 3
@@ -337,7 +367,8 @@ sensor:
 
   - platform: ct_clamp
     sensor: adc_sensor_a4
-    name: $hostname $measured_current $ct_clamp_04
+    name: $measured_current
+    device_id: dev_a4
     update_interval: 15s
     id: measured_current_a4
     accuracy_decimals: 3
@@ -352,7 +383,8 @@ sensor:
 
   - platform: ct_clamp
     sensor: adc_sensor_a5
-    name: $hostname $measured_current $ct_clamp_05
+    name: $measured_current
+    device_id: dev_a5
     update_interval: 15s
     id: measured_current_a5
     accuracy_decimals: 3
@@ -367,7 +399,8 @@ sensor:
 
   - platform: ct_clamp
     sensor: adc_sensor_a6
-    name: $hostname $measured_current $ct_clamp_06
+    name: $measured_current
+    device_id: dev_a6
     update_interval: 15s
     id: measured_current_a6
     accuracy_decimals: 3
@@ -382,7 +415,8 @@ sensor:
 
   - platform: ct_clamp
     sensor: adc_sensor_a7
-    name: $hostname $measured_current $ct_clamp_07
+    name: $measured_current
+    device_id: dev_a7
     update_interval: 15s
     id: measured_current_a7
     accuracy_decimals: 3
@@ -417,7 +451,8 @@ sensor:
 
   - platform: template
     id: power_a0
-    name: $hostname $measured_power $ct_clamp_00
+    name: $measured_power
+    device_id: dev_a0
     unit_of_measurement: 'kW'
     device_class: power
     update_interval: 15s        
@@ -431,7 +466,8 @@ sensor:
         return 0.0;
       }
   - platform: total_daily_energy
-    name: $hostname $measured_total_power_daily $ct_clamp_00
+    name: $measured_total_power_daily
+    device_id: dev_a0
     device_class: energy
     power_id: power_a0
     restore: true
@@ -439,7 +475,8 @@ sensor:
 
   - platform: template
     id: power_a1
-    name: $hostname $measured_power $ct_clamp_01
+    name: $measured_power
+    device_id: dev_a1
     unit_of_measurement: 'kW'
     device_class: power
     update_interval: 15s 
@@ -454,7 +491,8 @@ sensor:
       }
     
   - platform: total_daily_energy
-    name: $hostname $measured_total_power_daily $ct_clamp_01
+    name: $measured_total_power_daily
+    device_id: dev_a1
     device_class: energy
     power_id: power_a1
     restore: true
@@ -463,7 +501,8 @@ sensor:
 
   - platform: template
     id: power_a2
-    name: $hostname $measured_power $ct_clamp_02
+    name: $measured_power
+    device_id: dev_a2
     unit_of_measurement: 'kW'
     device_class: power
     update_interval: 15s 
@@ -478,7 +517,8 @@ sensor:
       }
 
   - platform: total_daily_energy
-    name: $hostname $measured_total_power_daily $ct_clamp_02
+    name: $measured_total_power_daily
+    device_id: dev_a2
     device_class: energy
     power_id: power_a2
     restore: true
@@ -487,7 +527,8 @@ sensor:
     
   - platform: template
     id: power_a3
-    name: $hostname $measured_power $ct_clamp_03
+    name: $measured_power
+    device_id: dev_a3
     unit_of_measurement: 'kW'
     device_class: power
     update_interval: 15s 
@@ -502,7 +543,8 @@ sensor:
       }
 
   - platform: total_daily_energy
-    name: $hostname $measured_total_power_daily $ct_clamp_03
+    name: $measured_total_power_daily
+    device_id: dev_a3
     device_class: energy
     power_id: power_a3
     restore: true
@@ -511,7 +553,8 @@ sensor:
 
   - platform: template
     id: power_a4
-    name: $hostname $measured_power $ct_clamp_04
+    name: $measured_power
+    device_id: dev_a4
     unit_of_measurement: 'kW'
     device_class: power
     update_interval: 15s 
@@ -526,7 +569,8 @@ sensor:
       }
 
   - platform: total_daily_energy
-    name: $hostname $measured_total_power_daily $ct_clamp_04
+    name: $measured_total_power_daily
+    device_id: dev_a4
     device_class: energy
     power_id: power_a4
     restore: true
@@ -535,7 +579,8 @@ sensor:
   
   - platform: template
     id: power_a5
-    name: $hostname $measured_power $ct_clamp_05
+    name: $measured_power
+    device_id: dev_a5
     unit_of_measurement: 'kW'
     device_class: power
     update_interval: 15s 
@@ -550,7 +595,8 @@ sensor:
       }
 
   - platform: total_daily_energy
-    name: $hostname $measured_total_power_daily $ct_clamp_05
+    name: $measured_total_power_daily
+    device_id: dev_a5
     device_class: energy
     power_id: power_a5
     restore: true
@@ -559,7 +605,8 @@ sensor:
 
   - platform: template
     id: power_a6
-    name: $hostname $measured_power $ct_clamp_06
+    name: $measured_power
+    device_id: dev_a6
     unit_of_measurement: 'kW'
     device_class: power
     update_interval: 15s 
@@ -574,7 +621,8 @@ sensor:
       }
 
   - platform: total_daily_energy
-    name: $hostname $measured_total_power_daily $ct_clamp_06
+    name: $measured_total_power_daily
+    device_id: dev_a6
     device_class: energy
     power_id: power_a6
     restore: true
@@ -582,7 +630,8 @@ sensor:
 
   - platform: template
     id: power_a7
-    name: $hostname $measured_power $ct_clamp_07
+    name: $measured_power
+    device_id: dev_a7
     unit_of_measurement: 'kW'
     device_class: power
     update_interval: 15s 
@@ -597,7 +646,8 @@ sensor:
       }
 
   - platform: total_daily_energy
-    name: $hostname $measured_total_power_daily $ct_clamp_07
+    name: $measured_total_power_daily
+    device_id: dev_a7
     device_class: energy
     power_id: power_a7
     restore: true
@@ -608,7 +658,8 @@ sensor:
 select:
   - platform: template
     id: ct_model_a0
-    name: $hostname $ct_model $ct_clamp_00
+    name: $ct_model
+    device_id: dev_a0
     entity_category: config
     optimistic: true
     restore_value: true
@@ -617,7 +668,8 @@ select:
 
   - platform: template
     id: ct_output_a0
-    name: $hostname $ct_output $ct_clamp_00
+    name: $ct_output
+    device_id: dev_a0
     entity_category: config
     optimistic: true
     restore_value: true
@@ -626,7 +678,8 @@ select:
 
   - platform: template
     id: circuit_voltage_a0
-    name: $hostname $circuit_voltage $ct_clamp_00
+    name: $circuit_voltage
+    device_id: dev_a0
     entity_category: config
     optimistic: true
     restore_value: true
@@ -635,7 +688,8 @@ select:
 
   - platform: template
     id: ct_model_a1
-    name: $hostname $ct_model $ct_clamp_01
+    name: $ct_model
+    device_id: dev_a1
     entity_category: config
     optimistic: true
     restore_value: true
@@ -644,7 +698,8 @@ select:
 
   - platform: template
     id: ct_output_a1
-    name: $hostname $ct_output $ct_clamp_01
+    name: $ct_output
+    device_id: dev_a1
     entity_category: config
     optimistic: true
     restore_value: true
@@ -653,7 +708,8 @@ select:
 
   - platform: template
     id: circuit_voltage_a1
-    name: $hostname $circuit_voltage $ct_clamp_01
+    name: $circuit_voltage
+    device_id: dev_a1
     entity_category: config
     optimistic: true
     restore_value: true
@@ -662,7 +718,8 @@ select:
 
   - platform: template
     id: ct_model_a2
-    name: $hostname $ct_model $ct_clamp_02
+    name: $ct_model
+    device_id: dev_a2
     entity_category: config
     optimistic: true
     restore_value: true
@@ -671,7 +728,8 @@ select:
 
   - platform: template
     id: ct_output_a2
-    name: $hostname $ct_output $ct_clamp_02
+    name: $ct_output
+    device_id: dev_a2
     entity_category: config
     optimistic: true
     restore_value: true
@@ -680,7 +738,8 @@ select:
 
   - platform: template
     id: circuit_voltage_a2
-    name: $hostname $circuit_voltage $ct_clamp_02
+    name: $circuit_voltage
+    device_id: dev_a2
     entity_category: config
     optimistic: true
     restore_value: true
@@ -689,7 +748,8 @@ select:
 
   - platform: template
     id: ct_model_a3
-    name: $hostname $ct_model $ct_clamp_03
+    name: $ct_model
+    device_id: dev_a3
     entity_category: config
     optimistic: true
     restore_value: true
@@ -698,7 +758,8 @@ select:
 
   - platform: template
     id: ct_output_a3
-    name: $hostname $ct_output $ct_clamp_03
+    name: $ct_output
+    device_id: dev_a3
     entity_category: config
     optimistic: true
     restore_value: true
@@ -707,7 +768,8 @@ select:
 
   - platform: template
     id: circuit_voltage_a3
-    name: $hostname $circuit_voltage $ct_clamp_03
+    name: $circuit_voltage
+    device_id: dev_a3
     entity_category: config
     optimistic: true
     restore_value: true
@@ -716,7 +778,8 @@ select:
 
   - platform: template
     id: ct_model_a4
-    name: $hostname $ct_model $ct_clamp_04
+    name: $ct_model
+    device_id: dev_a4
     entity_category: config
     optimistic: true
     restore_value: true
@@ -725,7 +788,8 @@ select:
 
   - platform: template
     id: ct_output_a4
-    name: $hostname $ct_output $ct_clamp_04
+    name: $ct_output
+    device_id: dev_a4
     entity_category: config
     optimistic: true
     restore_value: true
@@ -734,7 +798,8 @@ select:
 
   - platform: template
     id: circuit_voltage_a4
-    name: $hostname $circuit_voltage $ct_clamp_04
+    name: $circuit_voltage
+    device_id: dev_a4
     entity_category: config
     optimistic: true
     restore_value: true
@@ -743,7 +808,8 @@ select:
 
   - platform: template
     id: ct_model_a5
-    name: $hostname $ct_model $ct_clamp_05
+    name: $ct_model
+    device_id: dev_a5
     entity_category: config
     optimistic: true
     restore_value: true
@@ -752,7 +818,8 @@ select:
 
   - platform: template
     id: ct_output_a5
-    name: $hostname $ct_output $ct_clamp_05
+    name: $ct_output
+    device_id: dev_a5
     entity_category: config
     optimistic: true
     restore_value: true
@@ -761,7 +828,8 @@ select:
 
   - platform: template
     id: circuit_voltage_a5
-    name: $hostname $circuit_voltage $ct_clamp_05
+    name: $circuit_voltage
+    device_id: dev_a5
     entity_category: config
     optimistic: true
     restore_value: true
@@ -770,7 +838,8 @@ select:
 
   - platform: template
     id: ct_model_a6
-    name: $hostname $ct_model $ct_clamp_06
+    name: $ct_model
+    device_id: dev_a6
     entity_category: config
     optimistic: true
     restore_value: true
@@ -779,7 +848,8 @@ select:
 
   - platform: template
     id: ct_output_a6
-    name: $hostname $ct_output $ct_clamp_06
+    name: $ct_output
+    device_id: dev_a6
     entity_category: config
     optimistic: true
     restore_value: true
@@ -788,7 +858,8 @@ select:
 
   - platform: template
     id: circuit_voltage_a6
-    name: $hostname $circuit_voltage $ct_clamp_06
+    name: $circuit_voltage
+    device_id: dev_a6
     entity_category: config
     optimistic: true
     restore_value: true
@@ -797,7 +868,8 @@ select:
 
   - platform: template
     id: ct_model_a7
-    name: $hostname $ct_model $ct_clamp_07
+    name: $ct_model
+    device_id: dev_a7
     entity_category: config
     optimistic: true
     restore_value: true
@@ -806,7 +878,8 @@ select:
 
   - platform: template
     id: ct_output_a7
-    name: $hostname $ct_output $ct_clamp_07
+    name: $ct_output
+    device_id: dev_a7
     entity_category: config
     optimistic: true
     restore_value: true
@@ -815,7 +888,8 @@ select:
 
   - platform: template
     id: circuit_voltage_a7
-    name: $hostname $circuit_voltage $ct_clamp_07
+    name: $circuit_voltage
+    device_id: dev_a7
     entity_category: config
     optimistic: true
     restore_value: true
@@ -825,7 +899,8 @@ select:
 number:
   - platform: template
     id: ct_correction_a0
-    name: $hostname $ct_correction $ct_clamp_00
+    name: $ct_correction
+    device_id: dev_a0
     entity_category: config
     optimistic: true
     restore_value: true
@@ -838,7 +913,8 @@ number:
 
   - platform: template
     id: ct_correction_a1
-    name: $hostname $ct_correction $ct_clamp_01
+    name: $ct_correction
+    device_id: dev_a1
     entity_category: config
     optimistic: true
     restore_value: true
@@ -851,7 +927,8 @@ number:
 
   - platform: template
     id: ct_correction_a2
-    name: $hostname $ct_correction $ct_clamp_02
+    name: $ct_correction
+    device_id: dev_a2
     entity_category: config
     optimistic: true
     restore_value: true
@@ -864,7 +941,8 @@ number:
 
   - platform: template
     id: ct_correction_a3
-    name: $hostname $ct_correction $ct_clamp_03
+    name: $ct_correction
+    device_id: dev_a3
     entity_category: config
     optimistic: true
     restore_value: true
@@ -877,7 +955,8 @@ number:
 
   - platform: template
     id: ct_correction_a4
-    name: $hostname $ct_correction $ct_clamp_04
+    name: $ct_correction
+    device_id: dev_a4
     entity_category: config
     optimistic: true
     restore_value: true
@@ -890,7 +969,8 @@ number:
 
   - platform: template
     id: ct_correction_a5
-    name: $hostname $ct_correction $ct_clamp_05
+    name: $ct_correction
+    device_id: dev_a5
     entity_category: config
     optimistic: true
     restore_value: true
@@ -903,7 +983,8 @@ number:
 
   - platform: template
     id: ct_correction_a6
-    name: $hostname $ct_correction $ct_clamp_06
+    name: $ct_correction
+    device_id: dev_a6
     entity_category: config
     optimistic: true
     restore_value: true
@@ -916,7 +997,8 @@ number:
 
   - platform: template
     id: ct_correction_a7
-    name: $hostname $ct_correction $ct_clamp_07
+    name: $ct_correction
+    device_id: dev_a7
     entity_category: config
     optimistic: true
     restore_value: true
