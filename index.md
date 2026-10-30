@@ -10,7 +10,7 @@ Le **Power Manager 8 ports** de [Catroniq](https://catroniq.com/gesterner8ports)
 
 - 8 entrées pour pinces CT de 5 à 100 A (sortie 1 V, 0,5 V ou 0,333 V)
 - Courant (A), puissance (kW) et énergie du jour (kWh) pour chaque circuit
-- Circuits 120 V ou 240 V
+- Circuits 120 V, 240 V (Amérique du Nord) ou 230 V (Europe)
 - Réglage des pinces directement dans Home Assistant, sans modifier de code
 - Écran OLED qui affiche les mesures en boucle
 - Page web intégrée, utilisable même sans Home Assistant
@@ -39,10 +39,22 @@ Par défaut, les 8 canaux sont à **None** (désactivés) pour éviter les valeu
 |---|---|---|
 | CT Model | None, 5 A … 100 A | Calibre de la pince (inscrit sur la pince) |
 | CT Output | 1 V, 0.5 V, 0.333 V | Tension de sortie de la pince à pleine charge |
-| Circuit Voltage | 120 V, 240 V | 240 V pour un circuit à deux pôles (sécheuse, chauffe-eau, plinthes) |
+| Circuit Voltage | 120 V, 240 V, 230 V | Tension du circuit (voir ci-dessous) |
 | CT Correction | 50 à 150 % | Ajustement fin, à comparer avec une pince ampèremétrique de référence |
 
 Les réglages sont conservés dans la carte, même après une panne de courant ou une mise à jour.
+
+### Quelle tension choisir ?
+
+| Circuit | Pinces | Circuit Voltage |
+|---|---|---|
+| Amérique du Nord, circuit 120 V (prises, éclairage) | 1 pince | 120 V |
+| Amérique du Nord, 240 V sans neutre (plinthes, chauffe-eau, thermopompe) | 1 pince sur **un seul** des deux fils | 240 V |
+| Amérique du Nord, 240 V avec neutre (sécheuse, cuisinière) | 1 pince : approximation correcte · 2 pinces (une par fil) : mesure exacte | 1 pince : 240 V · 2 pinces : 120 V chacune, puis additionner |
+| Entrée principale du panneau | 2 pinces, une par phase | 120 V chacune, puis additionner |
+| Europe (monophasé) | 1 pince | 230 V |
+
+**Important :** ne refermez jamais une pince autour des deux fils d'un même circuit. Le courant circule en sens inverse dans chaque fil, les deux s'annulent et la pince lit 0.
 
 ## Utilisateurs d'ESPHome
 
