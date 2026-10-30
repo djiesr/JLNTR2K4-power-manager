@@ -1,24 +1,38 @@
 {
-  "name": "Power-Manager",
-  "version": "",
+  "name": "esphome.power-manager",
+  "version": "6.5.0",
   "home_assistant_domain": "esphome",
-  "new_install_skip_erase": false,
+  "new_install_prompt_erase": false,
   "builds": [
     {
       "chipFamily": "ESP32",
+      "ota": {
+        "path": "power-manager-esp32.ota.bin",
+        "md5": "98d06f052d3862c4b87b0c4db74aeafb",
+        "sha256": "04411729f19adef74a7352f5f712a63f30b92fbb13fbda8000c5657fe0aee008"
+      },
       "parts": [
         {
-          "path": "power-manager-esp32/power-manager-esp32.bin",
-          "offset": 0
+          "path": "power-manager-esp32.factory.bin",
+          "offset": 0,
+          "md5": "44adae609e5266088b0b205f30167d4c",
+          "sha256": "9a7d688d7e49d6eeb8e3e8288596776381910c217bd6d2449d5f003af1762d7b"
         }
       ]
     },
     {
       "chipFamily": "ESP8266",
+      "ota": {
+        "path": "power-manager-esp8266.ota.bin",
+        "md5": "8a9fa4c26d41f78a8f363a364cb91dca",
+        "sha256": "22f6c7825ff942115d2f76c3ae6fc9c1ae70acb49bc98affe8a28c6d7946fb98"
+      },
       "parts": [
         {
-          "path": "power-manager-esp8266/power-manager-esp8266.bin",
-          "offset": 0
+          "path": "power-manager-esp8266.factory.bin",
+          "offset": 0,
+          "md5": "8a9fa4c26d41f78a8f363a364cb91dca",
+          "sha256": "22f6c7825ff942115d2f76c3ae6fc9c1ae70acb49bc98affe8a28c6d7946fb98"
         }
       ]
     }

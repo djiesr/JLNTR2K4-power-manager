@@ -1,9 +1,0 @@
-{
-  "chipFamily": "ESP32",
-  "parts": [
-    {
-      "path": "power-manager-esp32/power-manager-esp32.bin",
-      "offset": 0
-    }
-  ]
-}
