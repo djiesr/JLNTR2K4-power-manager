@@ -52,7 +52,7 @@ esphome:
   # configuration and updates.
   project:
     name: esphome.power-manager
-    version: "6.7.0"
+    version: "6.8.0"
 
 esp8266:
   board: d1_mini
@@ -329,7 +329,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       - lambda: |-
-          static const float RATING[] = {0, 5, 10, 15, 20, 30, 50, 100};
+          static const float RATING[] = {0, 5, 10, 15, 20, 25, 30, 50, 60, 100};
           static const float OUT_V[] = {1.0, 0.5, 0.333};
           float rating = RATING[id(ct_model_a0).active_index().value_or(0)];
           float out_v = OUT_V[id(ct_output_a0).active_index().value_or(0)];
@@ -345,7 +345,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       - lambda: |-
-          static const float RATING[] = {0, 5, 10, 15, 20, 30, 50, 100};
+          static const float RATING[] = {0, 5, 10, 15, 20, 25, 30, 50, 60, 100};
           static const float OUT_V[] = {1.0, 0.5, 0.333};
           float rating = RATING[id(ct_model_a1).active_index().value_or(0)];
           float out_v = OUT_V[id(ct_output_a1).active_index().value_or(0)];
@@ -361,7 +361,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       - lambda: |-
-          static const float RATING[] = {0, 5, 10, 15, 20, 30, 50, 100};
+          static const float RATING[] = {0, 5, 10, 15, 20, 25, 30, 50, 60, 100};
           static const float OUT_V[] = {1.0, 0.5, 0.333};
           float rating = RATING[id(ct_model_a2).active_index().value_or(0)];
           float out_v = OUT_V[id(ct_output_a2).active_index().value_or(0)];
@@ -377,7 +377,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       - lambda: |-
-          static const float RATING[] = {0, 5, 10, 15, 20, 30, 50, 100};
+          static const float RATING[] = {0, 5, 10, 15, 20, 25, 30, 50, 60, 100};
           static const float OUT_V[] = {1.0, 0.5, 0.333};
           float rating = RATING[id(ct_model_a3).active_index().value_or(0)];
           float out_v = OUT_V[id(ct_output_a3).active_index().value_or(0)];
@@ -393,7 +393,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       - lambda: |-
-          static const float RATING[] = {0, 5, 10, 15, 20, 30, 50, 100};
+          static const float RATING[] = {0, 5, 10, 15, 20, 25, 30, 50, 60, 100};
           static const float OUT_V[] = {1.0, 0.5, 0.333};
           float rating = RATING[id(ct_model_a4).active_index().value_or(0)];
           float out_v = OUT_V[id(ct_output_a4).active_index().value_or(0)];
@@ -409,7 +409,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       - lambda: |-
-          static const float RATING[] = {0, 5, 10, 15, 20, 30, 50, 100};
+          static const float RATING[] = {0, 5, 10, 15, 20, 25, 30, 50, 60, 100};
           static const float OUT_V[] = {1.0, 0.5, 0.333};
           float rating = RATING[id(ct_model_a5).active_index().value_or(0)];
           float out_v = OUT_V[id(ct_output_a5).active_index().value_or(0)];
@@ -425,7 +425,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       - lambda: |-
-          static const float RATING[] = {0, 5, 10, 15, 20, 30, 50, 100};
+          static const float RATING[] = {0, 5, 10, 15, 20, 25, 30, 50, 60, 100};
           static const float OUT_V[] = {1.0, 0.5, 0.333};
           float rating = RATING[id(ct_model_a6).active_index().value_or(0)];
           float out_v = OUT_V[id(ct_output_a6).active_index().value_or(0)];
@@ -441,7 +441,7 @@ sensor:
     accuracy_decimals: 3
     filters:
       - lambda: |-
-          static const float RATING[] = {0, 5, 10, 15, 20, 30, 50, 100};
+          static const float RATING[] = {0, 5, 10, 15, 20, 25, 30, 50, 60, 100};
           static const float OUT_V[] = {1.0, 0.5, 0.333};
           float rating = RATING[id(ct_model_a7).active_index().value_or(0)];
           float out_v = OUT_V[id(ct_output_a7).active_index().value_or(0)];
@@ -682,7 +682,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "30 A", "50 A", "100 A"]
+    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "25 A", "30 A", "50 A", "60 A", "100 A"]
     initial_option: "$ct_none"
 
   - platform: template
@@ -712,7 +712,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "30 A", "50 A", "100 A"]
+    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "25 A", "30 A", "50 A", "60 A", "100 A"]
     initial_option: "$ct_none"
 
   - platform: template
@@ -742,7 +742,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "30 A", "50 A", "100 A"]
+    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "25 A", "30 A", "50 A", "60 A", "100 A"]
     initial_option: "$ct_none"
 
   - platform: template
@@ -772,7 +772,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "30 A", "50 A", "100 A"]
+    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "25 A", "30 A", "50 A", "60 A", "100 A"]
     initial_option: "$ct_none"
 
   - platform: template
@@ -802,7 +802,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "30 A", "50 A", "100 A"]
+    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "25 A", "30 A", "50 A", "60 A", "100 A"]
     initial_option: "$ct_none"
 
   - platform: template
@@ -832,7 +832,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "30 A", "50 A", "100 A"]
+    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "25 A", "30 A", "50 A", "60 A", "100 A"]
     initial_option: "$ct_none"
 
   - platform: template
@@ -862,7 +862,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "30 A", "50 A", "100 A"]
+    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "25 A", "30 A", "50 A", "60 A", "100 A"]
     initial_option: "$ct_none"
 
   - platform: template
@@ -892,7 +892,7 @@ select:
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "30 A", "50 A", "100 A"]
+    options: ["$ct_none", "5 A", "10 A", "15 A", "20 A", "25 A", "30 A", "50 A", "60 A", "100 A"]
     initial_option: "$ct_none"
 
   - platform: template
