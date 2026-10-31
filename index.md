@@ -8,7 +8,7 @@ Le **Power Manager 8 ports** de [Catroniq](https://catroniq.com/gesterner8ports)
 
 ## Fonctions
 
-- 8 entrées pour pinces CT de 5 à 100 A (sortie 1 V, 0,5 V ou 0,333 V)
+- 8 entrées pour pinces CT de 5, 10, 15, 20, 25, 30, 50, 60 ou 100 A, à sortie 1 V, 0,5 V ou 0,333 V
 - Courant (A), puissance (kW) et énergie du jour (kWh) pour chaque circuit
 - Circuits 120 V, 240 V (Amérique du Nord) ou 230 V (Europe)
 - Réglage des pinces directement dans Home Assistant, sans modifier de code
