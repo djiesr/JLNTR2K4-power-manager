@@ -20,8 +20,17 @@ substitutions:
   ct_model: 'CT Model'
   ct_output: 'CT Output'
   ct_none: 'None'
-  circuit_voltage: 'Circuit Voltage'
+  breaker_type: 'Breaker Type'
+  breaker_number: 'Breaker Number'
+  breaker: 'Breaker'
+  single: 'Single'
+  double: 'Double'
+  panel_size: 'Panel Size'
+  note: 'Note'
   ct_correction: 'CT Correction'
+  # Firmware offered by Home Assistant updates, and file used by the ESPHome dashboard
+  update_manifest: 'manifest.json'
+  import_file: 'power-manager-8c-esp32-d1-mini.yaml'
   
 
 esphome:
@@ -52,7 +61,7 @@ esphome:
   # configuration and updates.
   project:
     name: esphome.power-manager
-    version: "6.8.0"
+    version: "6.9.0"
 
 esp32:
   board: wemos_d1_mini32
@@ -78,12 +87,12 @@ http_request:
 update:
   - platform: http_request
     name: Firmware
-    source: https://djiesr.github.io/JLNTR2K4-power-manager/manifest.json
+    source: https://djiesr.github.io/JLNTR2K4-power-manager/${update_manifest}
     update_interval: 6h
 
 # This should point to the public location of this yaml file.
 dashboard_import:
-  package_import_url: github://djiesr/JLNTR2K4-power-manager/power-manager-8c-esp32-d1-mini.yaml@main
+  package_import_url: github://djiesr/JLNTR2K4-power-manager/${import_file}@main
 
 wifi:
   # Set up a wifi access point using the device name above
@@ -126,6 +135,104 @@ text_sensor:
       name: $hostname ESP Latest Scan Results
       entity_category: diagnostic
       disabled_by_default: true
+
+  # Breaker position(s) in the panel, like "29" or "29-31"
+  - platform: template
+    id: breaker_label_a0
+    name: $breaker
+    device_id: dev_a0
+    icon: mdi:electric-switch
+    update_interval: 60s
+    lambda: |-
+      int n = (int) id(breaker_a0).state;
+      if (n <= 0) return std::string("-");
+      if (id(breaker_type_a0).active_index().value_or(0) == 1)
+        return std::to_string(n) + "-" + std::to_string(n + 2);
+      return std::to_string(n);
+  - platform: template
+    id: breaker_label_a1
+    name: $breaker
+    device_id: dev_a1
+    icon: mdi:electric-switch
+    update_interval: 60s
+    lambda: |-
+      int n = (int) id(breaker_a1).state;
+      if (n <= 0) return std::string("-");
+      if (id(breaker_type_a1).active_index().value_or(0) == 1)
+        return std::to_string(n) + "-" + std::to_string(n + 2);
+      return std::to_string(n);
+  - platform: template
+    id: breaker_label_a2
+    name: $breaker
+    device_id: dev_a2
+    icon: mdi:electric-switch
+    update_interval: 60s
+    lambda: |-
+      int n = (int) id(breaker_a2).state;
+      if (n <= 0) return std::string("-");
+      if (id(breaker_type_a2).active_index().value_or(0) == 1)
+        return std::to_string(n) + "-" + std::to_string(n + 2);
+      return std::to_string(n);
+  - platform: template
+    id: breaker_label_a3
+    name: $breaker
+    device_id: dev_a3
+    icon: mdi:electric-switch
+    update_interval: 60s
+    lambda: |-
+      int n = (int) id(breaker_a3).state;
+      if (n <= 0) return std::string("-");
+      if (id(breaker_type_a3).active_index().value_or(0) == 1)
+        return std::to_string(n) + "-" + std::to_string(n + 2);
+      return std::to_string(n);
+  - platform: template
+    id: breaker_label_a4
+    name: $breaker
+    device_id: dev_a4
+    icon: mdi:electric-switch
+    update_interval: 60s
+    lambda: |-
+      int n = (int) id(breaker_a4).state;
+      if (n <= 0) return std::string("-");
+      if (id(breaker_type_a4).active_index().value_or(0) == 1)
+        return std::to_string(n) + "-" + std::to_string(n + 2);
+      return std::to_string(n);
+  - platform: template
+    id: breaker_label_a5
+    name: $breaker
+    device_id: dev_a5
+    icon: mdi:electric-switch
+    update_interval: 60s
+    lambda: |-
+      int n = (int) id(breaker_a5).state;
+      if (n <= 0) return std::string("-");
+      if (id(breaker_type_a5).active_index().value_or(0) == 1)
+        return std::to_string(n) + "-" + std::to_string(n + 2);
+      return std::to_string(n);
+  - platform: template
+    id: breaker_label_a6
+    name: $breaker
+    device_id: dev_a6
+    icon: mdi:electric-switch
+    update_interval: 60s
+    lambda: |-
+      int n = (int) id(breaker_a6).state;
+      if (n <= 0) return std::string("-");
+      if (id(breaker_type_a6).active_index().value_or(0) == 1)
+        return std::to_string(n) + "-" + std::to_string(n + 2);
+      return std::to_string(n);
+  - platform: template
+    id: breaker_label_a7
+    name: $breaker
+    device_id: dev_a7
+    icon: mdi:electric-switch
+    update_interval: 60s
+    lambda: |-
+      int n = (int) id(breaker_a7).state;
+      if (n <= 0) return std::string("-");
+      if (id(breaker_type_a7).active_index().value_or(0) == 1)
+        return std::to_string(n) + "-" + std::to_string(n + 2);
+      return std::to_string(n);
 
 i2c:
   sda: D2
@@ -473,7 +580,7 @@ sensor:
     lambda: |-
       if (id(measured_current_a0).state > 0.03){
         static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
-        float volts = VOLTS[id(circuit_voltage_a0).active_index().value_or(0)];
+        float volts = VOLTS[id(breaker_type_a0).active_index().value_or(0)];
         return (id(measured_current_a0).state * volts / 1000);
       } else {
         return 0.0;
@@ -497,7 +604,7 @@ sensor:
     lambda: |-
       if (id(measured_current_a1).state > 0.03){
         static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
-        float volts = VOLTS[id(circuit_voltage_a1).active_index().value_or(0)];
+        float volts = VOLTS[id(breaker_type_a1).active_index().value_or(0)];
         return (id(measured_current_a1).state * volts / 1000);
       } else {
         return 0.0;
@@ -523,7 +630,7 @@ sensor:
     lambda: |-
       if (id(measured_current_a2).state > 0.03){
         static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
-        float volts = VOLTS[id(circuit_voltage_a2).active_index().value_or(0)];
+        float volts = VOLTS[id(breaker_type_a2).active_index().value_or(0)];
         return (id(measured_current_a2).state * volts / 1000);
       } else {
         return 0.0;
@@ -549,7 +656,7 @@ sensor:
     lambda: |-
       if (id(measured_current_a3).state > 0.03){
         static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
-        float volts = VOLTS[id(circuit_voltage_a3).active_index().value_or(0)];
+        float volts = VOLTS[id(breaker_type_a3).active_index().value_or(0)];
         return (id(measured_current_a3).state * volts / 1000);
       } else {
         return 0.0;
@@ -575,7 +682,7 @@ sensor:
     lambda: |-
       if (id(measured_current_a4).state > 0.03){
         static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
-        float volts = VOLTS[id(circuit_voltage_a4).active_index().value_or(0)];
+        float volts = VOLTS[id(breaker_type_a4).active_index().value_or(0)];
         return (id(measured_current_a4).state * volts / 1000);
       } else {
         return 0.0;
@@ -601,7 +708,7 @@ sensor:
     lambda: |-
       if (id(measured_current_a5).state > 0.03){
         static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
-        float volts = VOLTS[id(circuit_voltage_a5).active_index().value_or(0)];
+        float volts = VOLTS[id(breaker_type_a5).active_index().value_or(0)];
         return (id(measured_current_a5).state * volts / 1000);
       } else {
         return 0.0;
@@ -627,7 +734,7 @@ sensor:
     lambda: |-
       if (id(measured_current_a6).state > 0.03){
         static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
-        float volts = VOLTS[id(circuit_voltage_a6).active_index().value_or(0)];
+        float volts = VOLTS[id(breaker_type_a6).active_index().value_or(0)];
         return (id(measured_current_a6).state * volts / 1000);
       } else {
         return 0.0;
@@ -652,7 +759,7 @@ sensor:
     lambda: |-
       if (id(measured_current_a7).state > 0.03){
         static const float VOLTS[] = {120.0f, 240.0f, 230.0f};
-        float volts = VOLTS[id(circuit_voltage_a7).active_index().value_or(0)];
+        float volts = VOLTS[id(breaker_type_a7).active_index().value_or(0)];
         return (id(measured_current_a7).state * volts / 1000);
       } else {
         return 0.0;
@@ -690,14 +797,16 @@ select:
     initial_option: "1 V"
 
   - platform: template
-    id: circuit_voltage_a0
-    name: $circuit_voltage
+    id: breaker_type_a0
+    name: $breaker_type
     device_id: dev_a0
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V", "230 V"]
-    initial_option: "120 V"
+    options: ["$single 120 V", "$double 240 V", "$single 230 V"]
+    initial_option: "$single 120 V"
+    on_value:
+      - component.update: breaker_label_a0
 
   - platform: template
     id: ct_model_a1
@@ -720,14 +829,16 @@ select:
     initial_option: "1 V"
 
   - platform: template
-    id: circuit_voltage_a1
-    name: $circuit_voltage
+    id: breaker_type_a1
+    name: $breaker_type
     device_id: dev_a1
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V", "230 V"]
-    initial_option: "120 V"
+    options: ["$single 120 V", "$double 240 V", "$single 230 V"]
+    initial_option: "$single 120 V"
+    on_value:
+      - component.update: breaker_label_a1
 
   - platform: template
     id: ct_model_a2
@@ -750,14 +861,16 @@ select:
     initial_option: "1 V"
 
   - platform: template
-    id: circuit_voltage_a2
-    name: $circuit_voltage
+    id: breaker_type_a2
+    name: $breaker_type
     device_id: dev_a2
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V", "230 V"]
-    initial_option: "120 V"
+    options: ["$single 120 V", "$double 240 V", "$single 230 V"]
+    initial_option: "$single 120 V"
+    on_value:
+      - component.update: breaker_label_a2
 
   - platform: template
     id: ct_model_a3
@@ -780,14 +893,16 @@ select:
     initial_option: "1 V"
 
   - platform: template
-    id: circuit_voltage_a3
-    name: $circuit_voltage
+    id: breaker_type_a3
+    name: $breaker_type
     device_id: dev_a3
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V", "230 V"]
-    initial_option: "120 V"
+    options: ["$single 120 V", "$double 240 V", "$single 230 V"]
+    initial_option: "$single 120 V"
+    on_value:
+      - component.update: breaker_label_a3
 
   - platform: template
     id: ct_model_a4
@@ -810,14 +925,16 @@ select:
     initial_option: "1 V"
 
   - platform: template
-    id: circuit_voltage_a4
-    name: $circuit_voltage
+    id: breaker_type_a4
+    name: $breaker_type
     device_id: dev_a4
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V", "230 V"]
-    initial_option: "120 V"
+    options: ["$single 120 V", "$double 240 V", "$single 230 V"]
+    initial_option: "$single 120 V"
+    on_value:
+      - component.update: breaker_label_a4
 
   - platform: template
     id: ct_model_a5
@@ -840,14 +957,16 @@ select:
     initial_option: "1 V"
 
   - platform: template
-    id: circuit_voltage_a5
-    name: $circuit_voltage
+    id: breaker_type_a5
+    name: $breaker_type
     device_id: dev_a5
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V", "230 V"]
-    initial_option: "120 V"
+    options: ["$single 120 V", "$double 240 V", "$single 230 V"]
+    initial_option: "$single 120 V"
+    on_value:
+      - component.update: breaker_label_a5
 
   - platform: template
     id: ct_model_a6
@@ -870,14 +989,16 @@ select:
     initial_option: "1 V"
 
   - platform: template
-    id: circuit_voltage_a6
-    name: $circuit_voltage
+    id: breaker_type_a6
+    name: $breaker_type
     device_id: dev_a6
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V", "230 V"]
-    initial_option: "120 V"
+    options: ["$single 120 V", "$double 240 V", "$single 230 V"]
+    initial_option: "$single 120 V"
+    on_value:
+      - component.update: breaker_label_a6
 
   - platform: template
     id: ct_model_a7
@@ -900,14 +1021,26 @@ select:
     initial_option: "1 V"
 
   - platform: template
-    id: circuit_voltage_a7
-    name: $circuit_voltage
+    id: breaker_type_a7
+    name: $breaker_type
     device_id: dev_a7
     entity_category: config
     optimistic: true
     restore_value: true
-    options: ["120 V", "240 V", "230 V"]
-    initial_option: "120 V"
+    options: ["$single 120 V", "$double 240 V", "$single 230 V"]
+    initial_option: "$single 120 V"
+    on_value:
+      - component.update: breaker_label_a7
+
+  # Size of the electrical panel: breaker numbers above it are refused
+  - platform: template
+    id: panel_size
+    name: $hostname $panel_size
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    options: ["1", "2", "4", "6", "8", "12", "16", "24", "30", "32", "40", "60", "80"]
+    initial_option: "80"
 
 number:
   - platform: template
@@ -1021,6 +1154,287 @@ number:
     step: 0.1
     unit_of_measurement: "%"
     mode: box
+
+  - platform: template
+    id: breaker_a0
+    name: $breaker_number
+    device_id: dev_a0
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: 0
+    min_value: 0
+    max_value: 80
+    step: 1
+    mode: box
+    on_value:
+      - lambda: |-
+          // A double breaker also takes the position 2 below (29 -> 29-31)
+          static const int PANEL[] = {1, 2, 4, 6, 8, 12, 16, 24, 30, 32, 40, 60, 80};
+          int panel = PANEL[id(panel_size).active_index().value_or(12)];
+          int last = (int) x + (id(breaker_type_a0).active_index().value_or(0) == 1 ? 2 : 0);
+          if (x > 0 && last > panel) {
+            ESP_LOGW("breaker", "Breaker %d does not fit in a %d-position panel", (int) x, panel);
+            id(breaker_a0).make_call().set_value(0).perform();
+          }
+      - component.update: breaker_label_a0
+
+  - platform: template
+    id: breaker_a1
+    name: $breaker_number
+    device_id: dev_a1
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: 0
+    min_value: 0
+    max_value: 80
+    step: 1
+    mode: box
+    on_value:
+      - lambda: |-
+          // A double breaker also takes the position 2 below (29 -> 29-31)
+          static const int PANEL[] = {1, 2, 4, 6, 8, 12, 16, 24, 30, 32, 40, 60, 80};
+          int panel = PANEL[id(panel_size).active_index().value_or(12)];
+          int last = (int) x + (id(breaker_type_a1).active_index().value_or(0) == 1 ? 2 : 0);
+          if (x > 0 && last > panel) {
+            ESP_LOGW("breaker", "Breaker %d does not fit in a %d-position panel", (int) x, panel);
+            id(breaker_a1).make_call().set_value(0).perform();
+          }
+      - component.update: breaker_label_a1
+
+  - platform: template
+    id: breaker_a2
+    name: $breaker_number
+    device_id: dev_a2
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: 0
+    min_value: 0
+    max_value: 80
+    step: 1
+    mode: box
+    on_value:
+      - lambda: |-
+          // A double breaker also takes the position 2 below (29 -> 29-31)
+          static const int PANEL[] = {1, 2, 4, 6, 8, 12, 16, 24, 30, 32, 40, 60, 80};
+          int panel = PANEL[id(panel_size).active_index().value_or(12)];
+          int last = (int) x + (id(breaker_type_a2).active_index().value_or(0) == 1 ? 2 : 0);
+          if (x > 0 && last > panel) {
+            ESP_LOGW("breaker", "Breaker %d does not fit in a %d-position panel", (int) x, panel);
+            id(breaker_a2).make_call().set_value(0).perform();
+          }
+      - component.update: breaker_label_a2
+
+  - platform: template
+    id: breaker_a3
+    name: $breaker_number
+    device_id: dev_a3
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: 0
+    min_value: 0
+    max_value: 80
+    step: 1
+    mode: box
+    on_value:
+      - lambda: |-
+          // A double breaker also takes the position 2 below (29 -> 29-31)
+          static const int PANEL[] = {1, 2, 4, 6, 8, 12, 16, 24, 30, 32, 40, 60, 80};
+          int panel = PANEL[id(panel_size).active_index().value_or(12)];
+          int last = (int) x + (id(breaker_type_a3).active_index().value_or(0) == 1 ? 2 : 0);
+          if (x > 0 && last > panel) {
+            ESP_LOGW("breaker", "Breaker %d does not fit in a %d-position panel", (int) x, panel);
+            id(breaker_a3).make_call().set_value(0).perform();
+          }
+      - component.update: breaker_label_a3
+
+  - platform: template
+    id: breaker_a4
+    name: $breaker_number
+    device_id: dev_a4
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: 0
+    min_value: 0
+    max_value: 80
+    step: 1
+    mode: box
+    on_value:
+      - lambda: |-
+          // A double breaker also takes the position 2 below (29 -> 29-31)
+          static const int PANEL[] = {1, 2, 4, 6, 8, 12, 16, 24, 30, 32, 40, 60, 80};
+          int panel = PANEL[id(panel_size).active_index().value_or(12)];
+          int last = (int) x + (id(breaker_type_a4).active_index().value_or(0) == 1 ? 2 : 0);
+          if (x > 0 && last > panel) {
+            ESP_LOGW("breaker", "Breaker %d does not fit in a %d-position panel", (int) x, panel);
+            id(breaker_a4).make_call().set_value(0).perform();
+          }
+      - component.update: breaker_label_a4
+
+  - platform: template
+    id: breaker_a5
+    name: $breaker_number
+    device_id: dev_a5
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: 0
+    min_value: 0
+    max_value: 80
+    step: 1
+    mode: box
+    on_value:
+      - lambda: |-
+          // A double breaker also takes the position 2 below (29 -> 29-31)
+          static const int PANEL[] = {1, 2, 4, 6, 8, 12, 16, 24, 30, 32, 40, 60, 80};
+          int panel = PANEL[id(panel_size).active_index().value_or(12)];
+          int last = (int) x + (id(breaker_type_a5).active_index().value_or(0) == 1 ? 2 : 0);
+          if (x > 0 && last > panel) {
+            ESP_LOGW("breaker", "Breaker %d does not fit in a %d-position panel", (int) x, panel);
+            id(breaker_a5).make_call().set_value(0).perform();
+          }
+      - component.update: breaker_label_a5
+
+  - platform: template
+    id: breaker_a6
+    name: $breaker_number
+    device_id: dev_a6
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: 0
+    min_value: 0
+    max_value: 80
+    step: 1
+    mode: box
+    on_value:
+      - lambda: |-
+          // A double breaker also takes the position 2 below (29 -> 29-31)
+          static const int PANEL[] = {1, 2, 4, 6, 8, 12, 16, 24, 30, 32, 40, 60, 80};
+          int panel = PANEL[id(panel_size).active_index().value_or(12)];
+          int last = (int) x + (id(breaker_type_a6).active_index().value_or(0) == 1 ? 2 : 0);
+          if (x > 0 && last > panel) {
+            ESP_LOGW("breaker", "Breaker %d does not fit in a %d-position panel", (int) x, panel);
+            id(breaker_a6).make_call().set_value(0).perform();
+          }
+      - component.update: breaker_label_a6
+
+  - platform: template
+    id: breaker_a7
+    name: $breaker_number
+    device_id: dev_a7
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: 0
+    min_value: 0
+    max_value: 80
+    step: 1
+    mode: box
+    on_value:
+      - lambda: |-
+          // A double breaker also takes the position 2 below (29 -> 29-31)
+          static const int PANEL[] = {1, 2, 4, 6, 8, 12, 16, 24, 30, 32, 40, 60, 80};
+          int panel = PANEL[id(panel_size).active_index().value_or(12)];
+          int last = (int) x + (id(breaker_type_a7).active_index().value_or(0) == 1 ? 2 : 0);
+          if (x > 0 && last > panel) {
+            ESP_LOGW("breaker", "Breaker %d does not fit in a %d-position panel", (int) x, panel);
+            id(breaker_a7).make_call().set_value(0).perform();
+          }
+      - component.update: breaker_label_a7
+
+text:
+  - platform: template
+    id: note_a0
+    name: $note
+    device_id: dev_a0
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: ""
+    max_length: 32
+    mode: text
+
+  - platform: template
+    id: note_a1
+    name: $note
+    device_id: dev_a1
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: ""
+    max_length: 32
+    mode: text
+
+  - platform: template
+    id: note_a2
+    name: $note
+    device_id: dev_a2
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: ""
+    max_length: 32
+    mode: text
+
+  - platform: template
+    id: note_a3
+    name: $note
+    device_id: dev_a3
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: ""
+    max_length: 32
+    mode: text
+
+  - platform: template
+    id: note_a4
+    name: $note
+    device_id: dev_a4
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: ""
+    max_length: 32
+    mode: text
+
+  - platform: template
+    id: note_a5
+    name: $note
+    device_id: dev_a5
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: ""
+    max_length: 32
+    mode: text
+
+  - platform: template
+    id: note_a6
+    name: $note
+    device_id: dev_a6
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: ""
+    max_length: 32
+    mode: text
+
+  - platform: template
+    id: note_a7
+    name: $note
+    device_id: dev_a7
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: ""
+    max_length: 32
+    mode: text
 
 time:
   - platform: sntp

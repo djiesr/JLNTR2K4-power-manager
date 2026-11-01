@@ -13,6 +13,8 @@ jobs:
         file:
           - power-manager-8c-esp8266-d1-mini.yaml
           - power-manager-8c-esp32-d1-mini.yaml
+          - power-manager-8c-esp8266-d1-mini-fr.yaml
+          - power-manager-8c-esp32-d1-mini-fr.yaml
     steps:
       - name: Checkout source code
         uses: actions/checkout@v7.0.1

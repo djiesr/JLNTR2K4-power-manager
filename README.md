@@ -11,3 +11,7 @@ You can use the link https://djiesr.github.io/JLNTR2K4-power-manager/ to it from
  - OR - 
 
 Just copy the content of the appropriate yaml file in ESPHome.
+
+## Languages
+
+The `-fr.yaml` files are the French versions: they include the English file as a package and only override the entity names (substitutions). Their firmware is published in `fr/` on the install page. English stays at the root so boards installed before languages existed keep getting updates.

@@ -1,0 +1,23 @@
+# Version française : même firmware que power-manager-8c-esp32-d1-mini.yaml,
+# avec les noms des entités en français dans Home Assistant.
+substitutions:
+  adc_sensor: 'Tension ADC'
+  measured_current: 'Courant mesuré'
+  measured_power: 'Puissance mesurée'
+  measured_total_power_daily: 'Énergie du jour'
+  ct_model: 'Modèle de pince'
+  ct_output: 'Sortie de pince'
+  ct_none: 'Aucune'
+  breaker_type: 'Type de disjoncteur'
+  breaker_number: 'Numéro de disjoncteur'
+  breaker: 'Disjoncteur'
+  single: 'Simple'
+  double: 'Double'
+  panel_size: 'Taille du panneau'
+  note: 'Note'
+  ct_correction: 'Correction de pince'
+  update_manifest: 'fr/manifest.json'
+  import_file: 'power-manager-8c-esp32-d1-mini-fr.yaml'
+
+packages:
+  base: !include power-manager-8c-esp32-d1-mini.yaml
