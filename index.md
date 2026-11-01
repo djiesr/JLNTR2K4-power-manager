@@ -23,10 +23,21 @@ Le **Power Manager 8 ports** de [Catroniq](https://catroniq.com/gesterner8ports)
 
 ## Installation
 
-Branchez la carte à votre ordinateur avec un câble USB, puis cliquez sur le bouton ci-dessous. Le firmware s'installe directement depuis votre navigateur, puis la page vous demande votre réseau Wi-Fi.
+Choisissez la langue des noms dans Home Assistant, branchez la carte à votre ordinateur avec un câble USB, puis cliquez sur le bouton ci-dessous. Le firmware s'installe directement depuis votre navigateur, puis la page vous demande votre réseau Wi-Fi.
+
+<label for="lang"><strong>Langue dans Home Assistant :</strong></label>
+<select id="lang">
+  <option value="./fr/manifest.json" selected>Français</option>
+  <option value="./manifest.json">English</option>
+</select>
 
 <script type="module" src="https://unpkg.com/esp-web-tools@10.4.0/dist/web/install-button.js?module"></script>
-<esp-web-install-button manifest="./manifest.json"></esp-web-install-button>
+<p><esp-web-install-button id="install" manifest="./fr/manifest.json"></esp-web-install-button></p>
+<script>
+  document.getElementById("lang").addEventListener("change", function (e) {
+    document.getElementById("install").manifest = e.target.value;
+  });
+</script>
 
 - Fonctionne avec **Chrome** ou **Edge** sur ordinateur (pas sur Firefox, Safari ni téléphone).
 - Pas besoin de savoir si votre carte est un ESP8266 ou un ESP32 : le bouton détecte la puce et installe le bon firmware.
@@ -42,34 +53,40 @@ Quand une nouvelle version est publiée, Home Assistant affiche **Mise à jour d
 
 La carte vérifie les mises à jour toutes les 6 heures.
 
+Les mises à jour gardent la langue choisie à l'installation. Pour changer de langue, réinstallez par USB : les noms changent, donc Home Assistant crée de nouvelles entités et les réglages des connecteurs sont à refaire.
+
 Une carte installée avant la version 6.7.0 n'a pas encore cette fonction : revenez une dernière fois sur cette page, branchez-la en USB et cliquez sur le bouton d'installation.
 
 ## Configuration des pinces
 
 Dans Home Assistant, chaque connecteur apparaît comme un appareil séparé (**PM A0** à **PM A7**), relié à la carte. Il regroupe ses mesures (courant, puissance, énergie) et ses réglages.
 
-Par défaut, les 8 canaux sont à **None** (désactivés) pour éviter les valeurs au hasard sur les entrées sans pince. Pour chaque connecteur utilisé, ouvrez son appareil dans Home Assistant, section **Configuration**, puis choisissez :
+Par défaut, les 8 canaux sont à **Aucune** (None, désactivés) pour éviter les valeurs au hasard sur les entrées sans pince. Pour chaque connecteur utilisé, ouvrez son appareil dans Home Assistant, section **Configuration**, puis choisissez :
 
 | Réglage | Valeurs | Description |
 |---|---|---|
-| CT Model | None, 5 A … 100 A | Calibre de la pince (inscrit sur la pince) |
-| CT Output | 1 V, 0.5 V, 0.333 V | Tension de sortie de la pince à pleine charge |
-| Circuit Voltage | 120 V, 240 V, 230 V | Tension du circuit (voir ci-dessous) |
-| CT Correction | 50 à 150 % | Ajustement fin, à comparer avec une pince ampèremétrique de référence |
+| Modèle de pince (CT Model) | Aucune, 5 A … 100 A | Calibre de la pince (inscrit sur la pince) |
+| Sortie de pince (CT Output) | 1 V, 0.5 V, 0.333 V | Tension de sortie de la pince à pleine charge |
+| Type de disjoncteur (Breaker Type) | Simple 120 V, Double 240 V, Simple 230 V | Disjoncteur simple ou double (voir ci-dessous) |
+| Correction de pince (CT Correction) | 50 à 150 % | Ajustement fin, à comparer avec une pince ampèremétrique de référence |
+| Numéro de disjoncteur (Breaker Number) | 0 à 80 | Numéro du disjoncteur dans le panneau (0 = non indiqué). Pour un double, entrez le premier : 29 donne « 29-31 » |
+| Note | texte, 32 caractères | Ce que le circuit alimente, par exemple « Laveuse à linge » (carte ESP32 seulement : l'ESP8266 n'a pas assez de mémoire ; renommez plutôt l'appareil) |
 
 Les réglages sont conservés dans la carte, même après une panne de courant ou une mise à jour.
 
+Sur l'appareil de la carte, réglez aussi **Taille du panneau** (Panel Size) : le nombre de positions de votre panneau (1 à 80). Un numéro de disjoncteur plus grand que le panneau est refusé et remis à 0.
+
 Astuce : renommez l'appareil d'un connecteur dans Home Assistant (par exemple « Sécheuse ») et toutes ses mesures suivent.
 
-### Quelle tension choisir ?
+### Disjoncteur simple ou double ?
 
-| Circuit | Pinces | Circuit Voltage |
+| Circuit | Pinces | Type de disjoncteur |
 |---|---|---|
-| Amérique du Nord, circuit 120 V (prises, éclairage) | 1 pince | 120 V |
-| Amérique du Nord, 240 V sans neutre (plinthes, chauffe-eau, thermopompe) | 1 pince sur **un seul** des deux fils | 240 V |
-| Amérique du Nord, 240 V avec neutre (sécheuse, cuisinière) | 1 pince : approximation correcte · 2 pinces (une par fil) : mesure exacte | 1 pince : 240 V · 2 pinces : 120 V chacune, puis additionner |
-| Entrée principale du panneau | 2 pinces, une par phase | 120 V chacune, puis additionner |
-| Europe (monophasé) | 1 pince | 230 V |
+| Amérique du Nord, circuit 120 V (prises, éclairage) | 1 pince | Simple 120 V |
+| Amérique du Nord, 240 V sans neutre (plinthes, chauffe-eau, thermopompe) | 1 pince sur **un seul** des deux fils | Double 240 V |
+| Amérique du Nord, 240 V avec neutre (sécheuse, cuisinière) | 1 pince : approximation correcte · 2 pinces (une par fil) : mesure exacte | 1 pince : Double 240 V · 2 pinces : Simple 120 V chacune, puis additionner |
+| Entrée principale du panneau | 2 pinces, une par phase | Simple 120 V chacune, puis additionner |
+| Europe (monophasé) | 1 pince | Simple 230 V |
 
 **Important :** ne refermez jamais une pince autour des deux fils d'un même circuit. Le courant circule en sens inverse dans chaque fil, les deux s'annulent et la pince lit 0.
 
